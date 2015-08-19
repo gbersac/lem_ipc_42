@@ -2,7 +2,7 @@
 # BASIC VARIABLES															   #
 ################################################################################
 
-SRCS				:= main.c
+SRCS				:= main.c get_shmem.c exit_shmem.c
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt

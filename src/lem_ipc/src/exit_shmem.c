@@ -1,37 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   exit_shmem.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/09 19:09:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/19 20:40:46 by gbersac          ###   ########.fr       */
+/*   Created: 2015/08/19 19:32:21 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/19 20:28:22 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_ipc.h"
 
-void		sig_handler(int sig)
-{
-	exit_shmem();
-	exit(EXIT_SUCCESS);
-	sig = 0;
-}
-
-int			main()
+void	exit_shmem(void)
 {
 	t_shmem	*mem;
+	int		shmid;
 
 	mem = get_shmem();
-	if (mem == NULL)
-		return (EXIT_FAILURE);
-	signal(SIGINT, sig_handler);
-	signal(SIGQUIT, sig_handler);
-	signal(SIGTERM, sig_handler);
-	printf("Nb user on this mem %zu\n", mem->nb_user);
-	while (42)
-	{}
-	exit_shmem();
-	return (EXIT_SUCCESS);
+	shmid = get_shmemid();
+	if (mem->nb_user <= 1)
+	{
+		shmctl(get_shmemid(NULL), IPC_RMID, NULL);
+		ft_putstr("Delete shared memory");
+	}
+	else
+	{
+		--mem->nb_user;
+		printf("Remaing %zu users\n", mem->nb_user);
+		shmdt(mem);
+	}
+
 }
+
