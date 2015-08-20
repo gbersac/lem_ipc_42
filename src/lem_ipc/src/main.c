@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:09:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/19 20:40:46 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/20 15:39:27 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,22 @@ int			main()
 	signal(SIGQUIT, sig_handler);
 	signal(SIGTERM, sig_handler);
 	printf("Nb user on this mem %zu\n", mem->nb_user);
+
+	// while (42)
+	// {
+	// 	semaph_wait_lock(mem->semaph_id);
+	// 	printf("semaphor lock %d\n", getpid());
+	// 	sleep(1);
+	// 	semaph_unlock(mem->semaph_id);
+	// 	printf("semaphor unlock %d\n\n", getpid());
+	// }
+
+
+	semaph_wait_lock(mem->semaph_id);
+	printf("semaphor lock %d\n", getpid());
 	while (42)
 	{}
+
 	exit_shmem();
 	return (EXIT_SUCCESS);
 }

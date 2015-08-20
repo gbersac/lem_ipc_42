@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:22:07 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/19 20:10:20 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/20 14:26:51 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static t_shmem	*init_shmem()
 		shmid = shmget(key, sizeof(t_shmem), SHMEM_RIGHT | IPC_CREAT);
 		to_return = shmat(shmid, NULL, 0);
 		ft_bzero(to_return, sizeof(t_shmem));
+		to_return->semaph_id = semaph_init();
 	}
 	else
 		to_return = shmat(shmid, NULL, 0);
