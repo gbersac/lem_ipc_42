@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lem_ipc.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/20 22:51:24 by gbersac          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEM_IPC_H
 # define LEM_IPC_H
 
 # define SHMEM_RIGHT	0644
 # define SHMEM_KEY		42
+# define MAX_PLAYER		64
 
 # include <sys/shm.h>
 # include <stdio.h>
@@ -18,11 +31,19 @@
 typedef struct sembuf	t_sembuf;
 typedef union semun		t_semun;
 
+typedef struct	s_player
+{
+	int			team;
+	pid_t		pid;
+}				t_player;
+
 typedef struct	s_shmem
 {
 	size_t		nb_user;
 	int			semaph_id;
 	pid_t		locking_process;
+	t_player	players[MAX_PLAYER];
+	size_t		current_player;
 }				t_shmem;
 
 t_shmem		*get_shmem();
@@ -37,5 +58,10 @@ void		exit_shmem();
 int			semaph_init();
 int			semaph_wait_lock(int semid);
 int			semaph_unlock(int semid);
+
+int			create_player();
+t_player	*get_current_player();
+
+int			play_turn();
 
 #endif

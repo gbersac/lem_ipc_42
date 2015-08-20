@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:32:21 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/20 15:44:20 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/20 18:07:22 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ void	exit_shmem(void)
 	if (mem->nb_user <= 1)
 	{
 		if (semctl(mem->semaph_id, 0, IPC_RMID, arg) == -1)
-			ft_putstr("error deleting the semaphore");
+			ft_putendl("error deleting the semaphore");
 		shmctl(get_shmemid(NULL), IPC_RMID, NULL);
-		ft_putstr("Delete shared memory");
+		ft_putendl("Delete shared memory");
 	}
 	else
 	{

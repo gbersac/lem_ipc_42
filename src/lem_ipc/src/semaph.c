@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 12:38:04 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/20 15:43:23 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/20 21:57:20 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		semaph_wait_lock(int semid)
 	init_sembuf(&sembuf, -1, SEM_UNDO);
 	if (semop(semid, &sembuf, 1) == -1)
 	{
-		ft_putendl("error while trying to lock the semaphore");
+		printf("error while trying to lock the semaphore %d\n", semid);
 		return (-1);
 	}
 	return (0);
@@ -59,7 +59,7 @@ int			semaph_unlock(int semid)
 	init_sembuf(&sembuf, 1, 0);
 	if (semop(semid, &sembuf, 1) == -1)
 	{
-		ft_putendl("error while trying to unlock the semaphore");
+		printf("error while trying to unlock the semaphore %d\n", semid);
 		return (-1);
 	}
 	return (0);

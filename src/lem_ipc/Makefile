@@ -2,7 +2,8 @@
 # BASIC VARIABLES															   #
 ################################################################################
 
-SRCS				:= main.c get_shmem.c exit_shmem.c semaph.c
+SRCS				:= main.c get_shmem.c exit_shmem.c semaph.c player.c \
+						play_turn.c
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt

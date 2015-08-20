@@ -6,13 +6,20 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:22:07 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/20 14:26:51 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/20 20:44:11 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_ipc.h"
 
-static t_shmem	*init_shmem()
+static void		init_shmem(t_shmem *mem)
+{
+	ft_bzero(mem, sizeof(t_shmem));
+	mem->semaph_id = semaph_init();
+	mem->players = NULL;
+}
+
+static t_shmem	*create_shmem()
 {
 	key_t	key;
 	t_shmem	*to_return;
@@ -22,10 +29,10 @@ static t_shmem	*init_shmem()
 	shmid = shmget(key, sizeof(t_shmem), SHMEM_RIGHT);
 	if (shmid == -1)
 	{
+		puts("Create new memory\n");
 		shmid = shmget(key, sizeof(t_shmem), SHMEM_RIGHT | IPC_CREAT);
 		to_return = shmat(shmid, NULL, 0);
-		ft_bzero(to_return, sizeof(t_shmem));
-		to_return->semaph_id = semaph_init();
+		init_shmem(to_return);
 	}
 	else
 		to_return = shmat(shmid, NULL, 0);
@@ -53,6 +60,6 @@ t_shmem			*get_shmem()
 	static t_shmem	*to_return = NULL;
 
 	if (to_return == NULL)
-		to_return = init_shmem();
+		to_return = create_shmem();
 	return (to_return);
 }

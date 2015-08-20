@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:09:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/20 15:39:27 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/20 23:07:01 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,40 @@
 void		sig_handler(int sig)
 {
 	exit_shmem();
-	exit(EXIT_SUCCESS);
-	sig = 0;
+	if (sig != -1)
+		exit(EXIT_SUCCESS);
+	else
+		exit(EXIT_FAILURE);
 }
 
-int			main()
+int			main_init(int argc, char **argv)
 {
-	t_shmem	*mem;
-
-	mem = get_shmem();
-	if (mem == NULL)
-		return (EXIT_FAILURE);
+	if (get_shmem() == NULL)
+		return (-1);
+	if (get_shmem()->nb_user > MAX_PLAYER)
+	{
+		printf("There is already enough player.\n");
+		return (-1);
+	}
+	semaph_wait_lock(get_shmem()->semaph_id);
+	printf("\nNb user on this mem %zu\n", get_shmem()->nb_user);
+	if (create_player(argc, argv) == -1)
+		return (-1);
+	semaph_unlock(get_shmem()->semaph_id);
 	signal(SIGINT, sig_handler);
 	signal(SIGQUIT, sig_handler);
 	signal(SIGTERM, sig_handler);
-	printf("Nb user on this mem %zu\n", mem->nb_user);
+	return (0);
+}
 
-	// while (42)
-	// {
-	// 	semaph_wait_lock(mem->semaph_id);
-	// 	printf("semaphor lock %d\n", getpid());
-	// 	sleep(1);
-	// 	semaph_unlock(mem->semaph_id);
-	// 	printf("semaphor unlock %d\n\n", getpid());
-	// }
-
-
-	semaph_wait_lock(mem->semaph_id);
-	printf("semaphor lock %d\n", getpid());
+int			main(int argc, char **argv)
+{
+	if (main_init(argc, argv) == -1)
+		sig_handler(-1);
 	while (42)
-	{}
-
+	{
+		play_turn();
+	}
 	exit_shmem();
 	return (EXIT_SUCCESS);
 }
