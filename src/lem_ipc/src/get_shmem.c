@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:22:07 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/20 20:44:11 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/21 14:04:31 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void		init_shmem(t_shmem *mem)
 {
 	ft_bzero(mem, sizeof(t_shmem));
 	mem->semaph_id = semaph_init();
-	mem->players = NULL;
 }
 
 static t_shmem	*create_shmem()

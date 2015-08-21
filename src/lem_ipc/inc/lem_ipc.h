@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/20 22:51:24 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/21 12:59:11 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define SHMEM_RIGHT	0644
 # define SHMEM_KEY		42
 # define MAX_PLAYER		64
+# define MAP_SIZE		32
 
 # include <sys/shm.h>
 # include <stdio.h>
@@ -28,14 +29,27 @@
 
 # include "libft.h"
 
+struct s_player;
+
 typedef struct sembuf	t_sembuf;
 typedef union semun		t_semun;
+typedef struct s_player	*t_tile;
 
 typedef struct	s_player
 {
 	int			team;
 	pid_t		pid;
+	t_tile		*position;
+	int			x;
+	int			y;
 }				t_player;
+
+
+typedef struct	s_map
+{
+	t_tile		tiles[MAP_SIZE * MAP_SIZE];
+	size_t		size;
+}				t_map;
 
 typedef struct	s_shmem
 {
@@ -44,6 +58,7 @@ typedef struct	s_shmem
 	pid_t		locking_process;
 	t_player	players[MAX_PLAYER];
 	size_t		current_player;
+	t_map		map;
 }				t_shmem;
 
 t_shmem		*get_shmem();
@@ -63,5 +78,7 @@ int			create_player();
 t_player	*get_current_player();
 
 int			play_turn();
+
+t_tile		*get_map_tile(int x, int y);
 
 #endif

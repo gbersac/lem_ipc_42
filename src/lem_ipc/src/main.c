@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:09:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/20 23:07:01 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/21 14:04:19 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void		sig_handler(int sig)
 
 int			main_init(int argc, char **argv)
 {
+	semaph_wait_lock(semaph_init());
 	if (get_shmem() == NULL)
 		return (-1);
 	if (get_shmem()->nb_user > MAX_PLAYER)
@@ -30,7 +31,6 @@ int			main_init(int argc, char **argv)
 		printf("There is already enough player.\n");
 		return (-1);
 	}
-	semaph_wait_lock(get_shmem()->semaph_id);
 	printf("\nNb user on this mem %zu\n", get_shmem()->nb_user);
 	if (create_player(argc, argv) == -1)
 		return (-1);

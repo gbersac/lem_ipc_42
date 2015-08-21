@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_shmem.c                                       :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/08/19 19:32:21 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/21 13:55:47 by gbersac          ###   ########.fr       */
+/*   Created: 2015/08/21 12:24:29 by gbersac           #+#    #+#             */
+/*   Updated: 2015/08/21 13:00:16 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_ipc.h"
 
-void	exit_shmem(void)
+t_tile	*get_map_tile(int x, int y)
 {
-	t_shmem	*mem;
-	int		shmid;
-	t_semun	arg;
+	t_tile	*to_return;
 
-	mem = get_shmem();
-	shmid = get_shmemid();
-	if (mem->nb_user <= 1)
-	{
-		if (semctl(mem->semaph_id, 0, IPC_RMID, arg) == -1)
-			ft_putendl("error deleting the semaphore");
-		shmctl(get_shmemid(NULL), IPC_RMID, NULL);
-		ft_putendl("Delete shared memory");
-	}
-	else
-	{
-		--mem->nb_user;
-		printf("Remaing %zu users\n", mem->nb_user);
-		shmdt(mem);
-	}
+	to_return = &get_shmem()->map.tiles[x * MAP_SIZE + y];
+	return (to_return);
 }
-
