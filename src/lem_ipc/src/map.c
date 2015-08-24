@@ -6,25 +6,28 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/21 12:24:29 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 16:29:30 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 18:52:47 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_ipc.h"
 
-t_tile	*get_map_tile(int x, int y)
+t_player	*get_map_tile(int x, int y)
 {
-	t_tile	*to_return;
+	int		player_idx;
 
-	to_return = &get_shmem()->map.tiles[x * MAP_SIZE + y];
-	return (to_return);
+	player_idx = get_shmem()->map.tiles[x * MAP_SIZE + y];
+	if (player_idx == -1)
+		return (NULL);
+	else
+		return (&get_shmem()->players[player_idx]);
 }
 
 void	print_map(void)
 {
-	int		x;
-	int		y;
-	t_tile	*t;
+	int			x;
+	int			y;
+	t_player	*t;
 
 	x = 0;
 	while (x < MAP_SIZE)
@@ -33,10 +36,10 @@ void	print_map(void)
 		while (y < MAP_SIZE)
 		{
 			t = get_map_tile(x, y);
-			if (*t == NULL)
+			if (t == NULL)
 				printf(". ");
 			else
-				printf("%d ", (*t)->team);
+				printf("%d ", t->team);
 			++y;
 		}
 		puts("");
@@ -46,6 +49,9 @@ void	print_map(void)
 
 void	set_map_tile(int x, int y, t_player *p)
 {
-	get_shmem()->map.tiles[x * MAP_SIZE + y] = p;
+	int		player_idx;
+
+	player_idx = p - get_shmem()->players;
+	get_shmem()->map.tiles[x * MAP_SIZE + y] = player_idx;
 	// printf("set_map_tile[%d, %d] %p -> %p\n", x, y, p, *get_map_tile(x, y));
 }

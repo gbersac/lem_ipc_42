@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:22:07 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 17:53:45 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 18:43:51 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void		init_shmem(t_shmem *mem)
 {
 	mem->semaph_id = get_semaph();
 	ft_bzero(mem, sizeof(t_shmem));
+	memset(mem->map.tiles, -1, sizeof(t_tile) * MAP_SIZE * MAP_SIZE);
 }
 
 static t_shmem	*create_shmem()

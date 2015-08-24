@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 17:42:04 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 17:51:33 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 18:59:57 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	player_actions(t_shmem *mem, t_player *player)
 	mem = NULL;
 	player = NULL;
 	printf("play_turn player pid %d\n", getpid());
-	// print_map();
+	print_map();
 }
 
 int			play_turn()

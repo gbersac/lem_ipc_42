@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 16:28:40 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 18:49:33 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # define MAX_PLAYER		64
 # define MAP_SIZE		32
 
+# include <string.h>
 # include <sys/shm.h>
 # include <stdio.h>
 # include <signal.h>
@@ -33,13 +34,12 @@ struct s_player;
 
 typedef struct sembuf	t_sembuf;
 typedef union semun		t_semun;
-typedef struct s_player	*t_tile;
+typedef int				t_tile;
 
 typedef struct	s_player
 {
 	int			team;
 	pid_t		pid;
-	t_tile		*position;
 	int			x;
 	int			y;
 }				t_player;
@@ -79,7 +79,7 @@ t_player	*get_current_player();
 
 int			play_turn();
 
-t_tile		*get_map_tile(int x, int y);
+t_player	*get_map_tile(int x, int y);
 void		set_map_tile(int x, int y, t_player *p);
 void		print_map(void);
 
