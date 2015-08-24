@@ -41,12 +41,12 @@ static t_shmem	*create_shmem()
 		puts("Error: can't open the shared memory.");
 		return (NULL);
 	}
-	get_shmemid(&shmid);
+	get_shmid(&shmid);
 	++to_return->nb_user;
 	return(to_return);
 }
 
-int				get_shmemid(int *value)
+int				get_shmid(int *value)
 {
 	static int	to_return = -1;
 

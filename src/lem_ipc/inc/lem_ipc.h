@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 18:49:33 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 22:23:42 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct	s_player
 	pid_t		pid;
 	int			x;
 	int			y;
+	int			is_active;
 }				t_player;
 
 
@@ -59,10 +60,11 @@ typedef struct	s_shmem
 	t_player	players[MAX_PLAYER];
 	size_t		current_player;
 	t_map		map;
+	int			nb_turn;
 }				t_shmem;
 
 t_shmem		*get_shmem();
-int			get_shmemid();
+int			get_shmid();
 
 /*
 ** Maybe possibility of very rare data racing when exit_shmem decrement the
@@ -76,6 +78,18 @@ int			get_semaph();
 
 int			create_player();
 t_player	*get_current_player();
+t_player	*get_player(int idx);
+
+/*
+** Return the id on which the user of this process is registered in
+** shmem->players.
+*/
+int			get_proc_player_id(int *player_id);
+
+/*
+** Return the player of this process.
+*/
+t_player	*get_proc_player();
 
 int			play_turn();
 

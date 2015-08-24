@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/21 12:24:29 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 18:52:47 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 19:42:48 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void	set_map_tile(int x, int y, t_player *p)
 {
 	int		player_idx;
 
-	player_idx = p - get_shmem()->players;
+	if (p != NULL)
+		player_idx = p - get_shmem()->players;
+	else
+		player_idx = -1;
 	get_shmem()->map.tiles[x * MAP_SIZE + y] = player_idx;
 	// printf("set_map_tile[%d, %d] %p -> %p\n", x, y, p, *get_map_tile(x, y));
 }
