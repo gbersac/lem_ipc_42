@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:22:07 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/21 14:04:31 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 17:53:45 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void		init_shmem(t_shmem *mem)
 {
+	mem->semaph_id = get_semaph();
 	ft_bzero(mem, sizeof(t_shmem));
-	mem->semaph_id = semaph_init();
 }
 
 static t_shmem	*create_shmem()
@@ -26,18 +26,18 @@ static t_shmem	*create_shmem()
 
 	key = SHMEM_KEY;
 	shmid = shmget(key, sizeof(t_shmem), SHMEM_RIGHT);
-	if (shmid == -1)
+	if (shmid > 0)
+		to_return = shmat(shmid, (void *)0, 0);
+	else
 	{
-		puts("Create new memory\n");
-		shmid = shmget(key, sizeof(t_shmem), SHMEM_RIGHT | IPC_CREAT);
-		to_return = shmat(shmid, NULL, 0);
+		puts("Create new memory");
+		shmid = shmget(key, sizeof(t_shmem), SHMEM_RIGHT | IPC_CREAT | IPC_EXCL);
+		to_return = shmat(shmid, (void *)0, 0);
 		init_shmem(to_return);
 	}
-	else
-		to_return = shmat(shmid, NULL, 0);
 	if (shmid == -1 || to_return == (t_shmem *)(-1))
 	{
-		ft_putstr("Error: can't open the shared memory.");
+		puts("Error: can't open the shared memory.");
 		return (NULL);
 	}
 	get_shmemid(&shmid);

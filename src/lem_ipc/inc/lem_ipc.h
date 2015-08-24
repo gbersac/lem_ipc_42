@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/21 12:59:11 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/24 16:28:40 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ int			get_shmemid();
 */
 void		exit_shmem();
 
-int			semaph_init();
-int			semaph_wait_lock(int semid);
-int			semaph_unlock(int semid);
+int			semaph_wait_lock();
+int			semaph_unlock();
+int			get_semaph();
 
 int			create_player();
 t_player	*get_current_player();
@@ -80,5 +80,7 @@ t_player	*get_current_player();
 int			play_turn();
 
 t_tile		*get_map_tile(int x, int y);
+void		set_map_tile(int x, int y, t_player *p);
+void		print_map(void);
 
 #endif
