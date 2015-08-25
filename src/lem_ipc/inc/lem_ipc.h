@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 19:11:45 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/25 21:05:29 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define NO_SEMAPH_LOCKER	0
 
 # include <string.h>
+# include <math.h>
+# include <time.h>
 # include <sys/shm.h>
 # include <stdio.h>
 # include <signal.h>
@@ -82,6 +84,7 @@ int				get_semaph();
 int				create_player();
 t_player		*get_current_player();
 t_player		*get_player(int idx);
+int				get_player_id(t_player *p);
 
 /*
 ** Return the id on which the user of this process is registered in
@@ -100,7 +103,6 @@ t_player		*get_map_tile(int x, int y);
 void			set_map_tile(int x, int y, t_player *p);
 void			print_map(void);
 
-# define MSG_TYPE	1
 typedef struct	s_msg
 {
 	long		type;
@@ -109,7 +111,9 @@ typedef struct	s_msg
 }				t_msg;
 int				get_msg_queue();
 void			send_message(int team, int target);
-int				read_message(t_msg *qbuf);
+int				read_message(t_msg *qbuf, int team);
 void			remove_queue();
+
+t_player		*designate_target();
 
 #endif

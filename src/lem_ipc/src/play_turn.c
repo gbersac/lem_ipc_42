@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 17:42:04 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 19:15:22 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/25 21:50:28 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,20 @@ static void	next_player(t_shmem *mem)
 
 static void	player_actions(t_shmem *mem, t_player *player)
 {
-	t_msg	msgbf;
+	t_player	*target;
 
 	++mem->nb_turn;
+	target = designate_target();
+	printf("player_actions\n");
+	if (target == NULL)
+		return ;
+	// read_message(&msgbf);
+	// printf("team %d target %d\n", msgbf.team, msgbf.target);
+	// send_message(get_current_player()->team, get_shmem()->nb_turn);
+	printf("play_turn player pid %d team %d target %d nb_turn %d\n",
+			getpid(), player->team, target->pid, mem->nb_turn);
+	print_map();
 	player = NULL;
-		read_message(&msgbf);
-	printf("team %d target %d\n", msgbf.team, msgbf.target);
-	send_message(get_current_player()->team, get_shmem()->nb_turn);
-	// printf("play_turn player pid %d nb_turn %d\n", getpid(), mem->nb_turn);
-	// print_map();
 }
 
 int			play_turn()

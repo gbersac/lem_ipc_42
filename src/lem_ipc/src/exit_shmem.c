@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:32:21 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 16:22:32 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/25 21:55:23 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ static void	shift_players(void)
 
 static void	test_proc_is_locking_semaph()
 {
-	printf("semaph_locker %d getpid %d\n",
-			get_shmem()->semaph_locker, getpid());
 	if (get_shmem()->semaph_locker == getpid())
 		semaph_unlock();
 }
@@ -52,6 +50,7 @@ void		exit_shmem(void)
 		if (semctl(mem->semaph_id, 0, IPC_RMID, arg) == -1)
 			ft_putendl("error deleting the semaphore");
 		shmctl(get_shmid(NULL), IPC_RMID, NULL);
+		remove_queue();
 		ft_putendl("Delete shared memory");
 	}
 	else
