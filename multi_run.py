@@ -2,11 +2,13 @@
 import subprocess
 import os
 
-NB_PROG = 3
+NB_TEAM = 2
+PLAYER_TEAM = 3
 
 subprocess.call("./free_ipc.sh")
-for i in range(0, NB_PROG):
-	cmd = "./run.sh " + str(i + 1)
-	fstdout = None
-	# fstdout = open("player" + str(i + 1), "w+")
-	subprocess.Popen(cmd, shell = True, stdout = fstdout)
+for team in range(0, NB_TEAM):
+	for player in range(0,PLAYER_TEAM):
+		cmd = "./run.sh " + str(team + 1)
+		fstdout = None
+		# fstdout = open("player" + str(i + 1), "w+")
+		subprocess.Popen(cmd, shell = True, stdout = fstdout)

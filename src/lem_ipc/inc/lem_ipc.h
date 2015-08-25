@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 16:20:13 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/25 19:11:45 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdio.h>
 # include <signal.h>
 # include <sys/sem.h>
+# include <sys/msg.h>
 # include <errno.h>
 # include <sys/ipc.h>
 # include <sys/types.h>
@@ -65,38 +66,50 @@ typedef struct	s_shmem
 	int			semaph_locker;
 }				t_shmem;
 
-t_shmem		*get_shmem();
-int			get_shmid();
+t_shmem			*get_shmem();
+int				get_shmid();
 
 /*
 ** Maybe possibility of very rare data racing when exit_shmem decrement the
 ** number of users.
 */
-void		exit_shmem();
+void			exit_shmem();
 
-int			semaph_wait_lock();
-int			semaph_unlock();
-int			get_semaph();
+int				semaph_wait_lock();
+int				semaph_unlock();
+int				get_semaph();
 
-int			create_player();
-t_player	*get_current_player();
-t_player	*get_player(int idx);
+int				create_player();
+t_player		*get_current_player();
+t_player		*get_player(int idx);
 
 /*
 ** Return the id on which the user of this process is registered in
 ** shmem->players.
 */
-int			get_proc_player_id(int *player_id);
+int				get_proc_player_id(int *player_id);
 
 /*
 ** Return the player of this process.
 */
-t_player	*get_proc_player();
+t_player		*get_proc_player();
 
-int			play_turn();
+int				play_turn();
 
-t_player	*get_map_tile(int x, int y);
-void		set_map_tile(int x, int y, t_player *p);
-void		print_map(void);
+t_player		*get_map_tile(int x, int y);
+void			set_map_tile(int x, int y, t_player *p);
+void			print_map(void);
+
+# define MSG_TYPE	1
+typedef struct	s_msg
+{
+	long		type;
+	int			team;
+	int			target;
+}				t_msg;
+int				get_msg_queue();
+void			send_message(int team, int target);
+int				read_message(t_msg *qbuf);
+void			remove_queue();
 
 #endif
