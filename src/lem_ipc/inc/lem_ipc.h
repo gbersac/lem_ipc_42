@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 21:05:29 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/25 22:11:27 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define SHMEM_RIGHT		0644
 # define SHMEM_KEY			42
 # define MAX_PLAYER			64
+# define MAX_TEAM			9
 # define MAP_SIZE			32
 # define NO_SEMAPH_LOCKER	0
 
@@ -115,5 +116,6 @@ int				read_message(t_msg *qbuf, int team);
 void			remove_queue();
 
 t_player		*designate_target();
+int				test_player_is_alive(t_player *p);
 
 #endif

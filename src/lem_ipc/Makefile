@@ -4,7 +4,7 @@
 
 SRCS				:= main.c get_shmem.c exit_shmem.c semaph.c player.c \
 						play_turn.c map.c get_semaph.c get_player.c msg.c \
-						designate_target.c
+						designate_target.c test_player_is_alive.c
 
 PATH_OBJ			:= obj
 PATH_OBJT			:= objt

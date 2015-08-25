@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 17:26:57 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 20:44:31 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/25 22:13:34 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	send_message(int team, int target)
 	qbuf.type = (long)team;
 	qbuf.team = team;
 	qbuf.target = target;
-	printf("send_message\n");
 	msgsnd_result = msgsnd(get_msg_queue(),
 			(struct msgbuf*)&qbuf,
 			sizeof(t_msg),
@@ -47,7 +46,6 @@ int		read_message(t_msg *qbuf, int team)
 {
 	ssize_t	msgrcv_ret;
 
-	printf("read_message\n");
 	qbuf->type = team;
 	msgrcv_ret = msgrcv(get_msg_queue(),
 			(struct msgbuf*)qbuf, sizeof(t_msg), team, IPC_NOWAIT);
