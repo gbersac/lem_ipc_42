@@ -6,17 +6,18 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 22:23:42 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/25 16:20:13 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEM_IPC_H
 # define LEM_IPC_H
 
-# define SHMEM_RIGHT	0644
-# define SHMEM_KEY		42
-# define MAX_PLAYER		64
-# define MAP_SIZE		32
+# define SHMEM_RIGHT		0644
+# define SHMEM_KEY			42
+# define MAX_PLAYER			64
+# define MAP_SIZE			32
+# define NO_SEMAPH_LOCKER	0
 
 # include <string.h>
 # include <sys/shm.h>
@@ -61,6 +62,7 @@ typedef struct	s_shmem
 	size_t		current_player;
 	t_map		map;
 	int			nb_turn;
+	int			semaph_locker;
 }				t_shmem;
 
 t_shmem		*get_shmem();
