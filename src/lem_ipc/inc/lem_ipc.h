@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 22:11:27 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/26 19:30:06 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define SHMEM_KEY			42
 # define MAX_PLAYER			64
 # define MAX_TEAM			9
-# define MAP_SIZE			32
+# define MAP_SIZE			4
 # define NO_SEMAPH_LOCKER	0
 
 # include <string.h>
@@ -77,6 +77,7 @@ int				get_shmid();
 ** number of users.
 */
 void			exit_shmem();
+void			sig_handler(int sig);
 
 int				semaph_wait_lock();
 int				semaph_unlock();
@@ -86,6 +87,7 @@ int				create_player();
 t_player		*get_current_player();
 t_player		*get_player(int idx);
 int				get_player_id(t_player *p);
+void			move_player(t_player *player, t_player *target);
 
 /*
 ** Return the id on which the user of this process is registered in
@@ -117,5 +119,6 @@ void			remove_queue();
 
 t_player		*designate_target();
 int				test_player_is_alive(t_player *p);
+void			next_player(t_shmem *mem);
 
 #endif

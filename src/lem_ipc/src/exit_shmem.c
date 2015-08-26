@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:32:21 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 21:55:23 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/26 19:04:21 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,12 @@ static void	shift_players(void)
 
 static void	test_proc_is_locking_semaph()
 {
+	// printf("test_proc_is_locking_semaph %d ==? %d\n", get_shmem()->semaph_locker, getpid());
 	if (get_shmem()->semaph_locker == getpid())
+	{
+		// printf("unlock\n");
 		semaph_unlock();
+	}
 }
 
 void		exit_shmem(void)
@@ -55,9 +59,9 @@ void		exit_shmem(void)
 	}
 	else
 	{
-		test_proc_is_locking_semaph();
 		--mem->nb_user;
 		printf("%d quit, remaing %zu users\n", getpid(), mem->nb_user);
+		test_proc_is_locking_semaph();
 		shmdt(mem);
 	}
 }
