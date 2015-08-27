@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/26 19:30:06 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/26 20:36:18 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,5 +120,7 @@ void			remove_queue();
 t_player		*designate_target();
 int				test_player_is_alive(t_player *p);
 void			next_player(t_shmem *mem);
+int				test_victory();
+void			kill_all();
 
 #endif

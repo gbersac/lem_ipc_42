@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/09 19:09:58 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/24 17:53:35 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/27 18:44:13 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ void		sig_handler(int sig)
 {
 	exit_shmem();
 	if (sig != -1)
+	{
+		// test_victory();
 		exit(EXIT_SUCCESS);
+	}
 	else
 		exit(EXIT_FAILURE);
 }

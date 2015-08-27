@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 17:42:04 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/26 19:29:23 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/27 18:06:36 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			play_turn()
 	semaph_wait_lock();
 	if (player->pid == getpid())
 	{
+		printf("###new play turn\n");
 		player_actions(mem, player);
 		sleep(2);
 		next_player(mem);

@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/19 19:32:21 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/26 19:04:21 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/27 18:25:54 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ void		exit_shmem(void)
 	shift_players();
 	if (mem->nb_user <= 1)
 	{
-		if (semctl(mem->semaph_id, 0, IPC_RMID, arg) == -1)
-			ft_putendl("error deleting the semaphore");
+		semctl(mem->semaph_id, 0, IPC_RMID, arg);
 		shmctl(get_shmid(NULL), IPC_RMID, NULL);
 		remove_queue();
 		ft_putendl("Delete shared memory");
@@ -64,4 +63,21 @@ void		exit_shmem(void)
 		test_proc_is_locking_semaph();
 		shmdt(mem);
 	}
+}
+
+void		kill_all()
+{
+	t_player	*p;
+	int			i;
+
+	i = 0;
+	while (i < MAX_PLAYER && get_player(i)->is_active)
+	{
+		p = get_player(i);
+		if (p->pid != getpid())
+			kill(p->pid, 9);
+		++i;
+	}
+	get_shmem()->nb_user = 1;
+	exit_shmem();
 }
