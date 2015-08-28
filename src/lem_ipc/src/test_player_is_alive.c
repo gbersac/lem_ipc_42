@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/25 22:01:24 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/27 18:18:46 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 17:16:33 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,8 @@ int				test_player_is_alive(t_player *p)
 	test_one_tile(p, p->x - 1, p->y - 1, teams);
 	if (test_teams(teams))
 	{
-		printf("!!!player x %d y %d team %d is dead\n", p->x, p->y, p->team);
+		printf("!!!player %d x %d y %d team %d is dead\n",
+			getpid(), p->x, p->y, p->team);
 		p->is_active = 0;
 		if (test_victory())
 			kill_all();

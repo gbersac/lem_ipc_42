@@ -6,26 +6,32 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/24 19:10:55 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/25 20:51:30 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 17:33:10 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_ipc.h"
 
-int			get_proc_player_id(int *player_id)
+int			get_proc_player_id()
 {
-	static int	to_return = 0;
+	size_t	i;
 
-	if (player_id != NULL)
-		to_return = *player_id;
-	return(to_return);
+	i = 0;
+	while (i < get_shmem()->nb_user)
+	{
+		if (get_player(i)->pid == getpid())
+			return (i);
+		++i;
+	}
+	printf("error get_proc_player_id\n");
+	return (-1);
 }
 
 t_player	*get_proc_player()
 {
 	t_player	*to_return;
 
-	to_return = &get_shmem()->players[get_proc_player_id(NULL)];
+	to_return = &get_shmem()->players[get_proc_player_id()];
 	return(to_return);
 }
 

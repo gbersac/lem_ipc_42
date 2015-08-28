@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 17:42:04 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/27 18:06:36 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 17:30:10 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,17 @@ void		next_player(t_shmem *mem)
 
 void	print_players_position(t_shmem *mem)
 {
+	size_t			i;
 	t_player	*ps;
 
-	ps = mem->players;
-	do
+	i = 0;
+	while (i < mem->nb_user)
 	{
-		printf("pid %d team %d x %d y %d\n", ps->pid, ps->team, ps->x, ps->y);
-		++ps;
-	} while (ps->is_active);
+		ps = get_player(i);
+		printf("pid %d team %d x %d y %d is_active %d\n",
+				ps->pid, ps->team, ps->x, ps->y, ps->is_active);
+		++i;
+	}
 }
 
 static void	player_actions(t_shmem *mem, t_player *player)
@@ -66,7 +69,7 @@ int			play_turn()
 	semaph_wait_lock();
 	if (player->pid == getpid())
 	{
-		printf("###new play turn\n");
+		printf("###new turn %d -> %d\n", getpid(), get_player(get_proc_player_id(NULL))->pid);
 		player_actions(mem, player);
 		sleep(2);
 		next_player(mem);

@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/20 20:20:36 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/26 20:36:18 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 18:02:50 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define SHMEM_KEY			42
 # define MAX_PLAYER			64
 # define MAX_TEAM			9
-# define MAP_SIZE			4
+# define MAP_SIZE			8
 # define NO_SEMAPH_LOCKER	0
 
 # include <string.h>
@@ -93,7 +93,7 @@ void			move_player(t_player *player, t_player *target);
 ** Return the id on which the user of this process is registered in
 ** shmem->players.
 */
-int				get_proc_player_id(int *player_id);
+int				get_proc_player_id();
 
 /*
 ** Return the player of this process.
@@ -103,7 +103,7 @@ t_player		*get_proc_player();
 int				play_turn();
 
 t_player		*get_map_tile(int x, int y);
-void			set_map_tile(int x, int y, t_player *p);
+int				set_map_tile(int x, int y, t_player *p);
 void			print_map(void);
 
 typedef struct	s_msg

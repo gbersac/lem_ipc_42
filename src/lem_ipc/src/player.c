@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/27 20:41:13 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/28 16:04:23 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 18:01:34 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void		set_player_position(t_player *p)
 	int		y;
 
 	srand(time(NULL));
-	i = rand() % MAP_SIZE * MAP_SIZE;
+	i = rand() % (MAP_SIZE * MAP_SIZE);
 	while (i < MAP_SIZE * MAP_SIZE)
 	{
 		x = i % MAP_SIZE;

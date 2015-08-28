@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 15:39:07 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/26 18:30:56 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 17:05:10 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,17 @@
 
 static int		change_tile(t_player *player, int x, int y)
 {
+	int		old_x;
+	int		old_y;
+
 	if (get_map_tile(x, y) != NULL)
 		return (0);
+	old_x = player->x;
+	old_y = player->y;
 	// printf("change_tile x %d y %d\n", player->x, player->y);
-	set_map_tile(player->x, player->y, NULL);
-	set_map_tile(x, y, player);
+	if (!set_map_tile(x, y, player))
+		return (0);
+	set_map_tile(old_x, old_y, NULL);
 	return (1);
 }
 

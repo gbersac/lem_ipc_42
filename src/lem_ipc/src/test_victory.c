@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/26 19:43:38 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/27 18:57:24 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 17:41:51 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	print_victorious(int *teams)
 	i = 0;
 	while (i < MAX_TEAM)
 	{
-		if (teams[i] > 0)
+		if (teams[i] > 1)
 		{
 			printf("The team %d is victorious !!!\n", i + 1);
 			return ;
@@ -37,7 +37,7 @@ static int	test_teams(int *teams)
 	nb_alive_team = 0;
 	while (i < MAX_TEAM)
 	{
-		if (teams[i] > 0)
+		if (teams[i] > 1)
 		{
 			printf("team %zu nb user %d\n", i + 1, teams[i]);
 			++nb_alive_team;
