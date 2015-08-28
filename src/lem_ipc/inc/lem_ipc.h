@@ -83,7 +83,7 @@ int				semaph_wait_lock();
 int				semaph_unlock();
 int				get_semaph();
 
-int				create_player();
+int				create_player(int argc, char **argv);
 t_player		*get_current_player();
 t_player		*get_player(int idx);
 int				get_player_id(t_player *p);
