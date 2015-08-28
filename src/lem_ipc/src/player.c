@@ -6,7 +6,7 @@
 /*   By: gbersac <gbersac@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/08/27 20:41:13 by gbersac           #+#    #+#             */
-/*   Updated: 2015/08/28 15:53:54 by gbersac          ###   ########.fr       */
+/*   Updated: 2015/08/28 16:04:23 by gbersac          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,12 @@ static int		usage(void)
 
 static void		set_player_position(t_player *p)
 {
-	int		random;
 	int		i;
 	int		x;
 	int		y;
 
 	srand(time(NULL));
-	random = rand();
-	i = rand();
+	i = rand() % MAP_SIZE * MAP_SIZE;
 	while (i < MAP_SIZE * MAP_SIZE)
 	{
 		x = i % MAP_SIZE;
@@ -36,6 +34,7 @@ static void		set_player_position(t_player *p)
 		{
 			p->x = x;
 			p->y = y;
+			set_map_tile(x, y, p);
 			return ;
 		}
 		++i;
