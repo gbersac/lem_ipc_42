@@ -23,7 +23,7 @@ int			get_proc_player_id()
 			return (i);
 		++i;
 	}
-	printf("error get_proc_player_id\n");
+	// printf("error get_proc_player_id\n");
 	return (-1);
 }
 

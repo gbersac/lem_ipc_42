@@ -55,11 +55,11 @@ static t_player	*choose_target(void)
 		p = get_player(i);
 		if (p->pid != getpid() && p->team != get_current_player()->team)
 		{
-			printf("p->pid %d p->team %d curplay->pid %d get_current_player()->team %d\n",
-					p->pid,
-					p->team,
-					getpid(),
-					get_current_player()->team);
+			// printf("p->pid %d p->team %d curplay->pid %d get_current_player()->team %d\n",
+			// 		p->pid,
+			// 		p->team,
+			// 		getpid(),
+			// 		get_current_player()->team);
 			player_dist = dist_players(p, get_current_player());
 			if (player_dist < min_dist)
 			{

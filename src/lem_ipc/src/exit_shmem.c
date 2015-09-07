@@ -30,19 +30,26 @@ static void	shift_players(void)
 
 static void	test_proc_is_locking_semaph(void)
 {
-	// printf("test_proc_is_locking_semaph %d ==? %d\n", get_shmem()->semaph_locker, getpid());
 	if (get_shmem()->semaph_locker == getpid())
-	{
-		// printf("unlock\n");
 		semaph_unlock();
-	}
+}
+
+void		del_shmem()
+{
+	t_shmem	*mem;
+	t_semun	arg;
+
+	mem = get_shmem();
+	semctl(mem->semaph_id, 0, IPC_RMID, arg);
+	shmctl(get_shmid(NULL), IPC_RMID, NULL);
+	remove_queue();
+	ft_putendl("Delete shared memory");
 }
 
 void		exit_shmem(void)
 {
 	t_shmem	*mem;
 	int		shmid;
-	t_semun	arg;
 
 	set_map_tile(get_proc_player()->x, get_proc_player()->y, NULL);
 	mem = get_shmem();
@@ -50,12 +57,7 @@ void		exit_shmem(void)
 	get_proc_player()->is_active = 0;
 	shift_players();
 	if (mem->nb_user <= 1)
-	{
-		semctl(mem->semaph_id, 0, IPC_RMID, arg);
-		shmctl(get_shmid(NULL), IPC_RMID, NULL);
-		remove_queue();
-		ft_putendl("Delete shared memory");
-	}
+		del_shmem();
 	else
 	{
 		--mem->nb_user;
@@ -71,13 +73,14 @@ void		kill_all()
 	int			i;
 
 	i = 0;
-	while (i < MAX_PLAYER && get_player(i)->is_active)
+	while (i < MAX_PLAYER)
 	{
 		p = get_player(i);
-		if (p->pid != getpid())
+		if (p->pid != getpid() && p->pid != 0)
 			kill(p->pid, 9);
 		++i;
 	}
 	get_shmem()->nb_user = 1;
-	exit_shmem();
+	del_shmem();
+	exit(EXIT_SUCCESS);
 }

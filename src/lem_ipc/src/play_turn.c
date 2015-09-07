@@ -54,7 +54,7 @@ static void	player_actions(t_shmem *mem, t_player *player)
 	move_player(player, target);
 	printf("play_turn player pid %d team %d target %d nb_turn %d\n",
 			getpid(), player->team, target->pid, mem->nb_turn);
-	print_players_position(mem);
+	// print_players_position(mem);
 	print_map();
 	player = NULL;
 }

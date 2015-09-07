@@ -1,6 +1,7 @@
 #!/nfs/zfs-student-3/users/2013/gbersac/.brew/bin/python3
 import subprocess
 import os
+import time
 
 NB_TEAM = 2
 PLAYER_TEAM = 3
@@ -12,3 +13,5 @@ for team in range(0, NB_TEAM):
 		fstdout = None
 		# fstdout = open("player" + str(i + 1), "w+")
 		subprocess.Popen(cmd, shell = True, stdout = fstdout)
+		time.sleep(0.01)
+
