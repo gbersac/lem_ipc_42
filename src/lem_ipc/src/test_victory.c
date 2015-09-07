@@ -38,10 +38,7 @@ static int	test_teams(int *teams)
 	while (i < MAX_TEAM)
 	{
 		if (teams[i] > 1)
-		{
-			// printf("team %zu nb user %d\n", i + 1, teams[i]);
 			++nb_alive_team;
-		}
 		++i;
 	}
 	if (nb_alive_team > 1)
@@ -50,21 +47,17 @@ static int	test_teams(int *teams)
 	return (1);
 }
 
-int			test_victory()
+int			test_victory(void)
 {
 	size_t		i;
 	int			teams[MAX_TEAM];
 
-	// printf("test_victory\n");
 	bzero(teams, MAX_TEAM * sizeof(int));
 	i = 0;
 	while (i < get_shmem()->nb_user)
 	{
 		if (get_player(i)->is_active)
 			++teams[get_player(i)->team - 1];
-		// printf("++team %d is_active %d x %d y %d nb user in this team %d\n",
-		// 		get_player(i)->team, get_player(i)->is_active,
-		// 		get_player(i)->x, get_player(i)->y, teams[get_player(i)->team - 1]);
 		++i;
 	}
 	return (test_teams(teams));

@@ -16,10 +16,7 @@ void		sig_handler(int sig)
 {
 	exit_shmem();
 	if (sig != -1)
-	{
-		// test_victory();
 		exit(EXIT_SUCCESS);
-	}
 	else
 		exit(EXIT_FAILURE);
 }

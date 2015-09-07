@@ -15,8 +15,9 @@
 static int	init_semaph(void)
 {
 	key_t	key;
-	int		semid = -1;
+	int		semid;
 
+	semid = -1;
 	key = SHMEM_KEY;
 	semid = semget(key, 1, IPC_CREAT | IPC_EXCL | SHMEM_RIGHT);
 	if (semid >= 0)
@@ -31,7 +32,7 @@ static int	init_semaph(void)
 		puts("Error creating semaphore.");
 		return (-1);
 	}
-	return(semid);
+	return (semid);
 }
 
 int			get_semaph(void)

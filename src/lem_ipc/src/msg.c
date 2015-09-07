@@ -12,7 +12,7 @@
 
 #include "lem_ipc.h"
 
-int		get_msg_queue()
+int		get_msg_queue(void)
 {
 	static int	to_return = -1;
 	int			key;
@@ -20,10 +20,10 @@ int		get_msg_queue()
 	if (to_return == -1)
 	{
 		key = SHMEM_KEY;
-		if((to_return = msgget(key, IPC_CREAT | SHMEM_RIGHT)) == -1)
-				printf("Error : can't get message queue");
+		if ((to_return = msgget(key, IPC_CREAT | SHMEM_RIGHT)) == -1)
+			printf("Error : can't get message queue");
 	}
-	return(to_return);
+	return (to_return);
 }
 
 void	send_message(int team, int target)
@@ -38,7 +38,7 @@ void	send_message(int team, int target)
 			(struct msgbuf*)&qbuf,
 			sizeof(t_msg),
 			0);
-	if(msgsnd_result == -1)
+	if (msgsnd_result == -1)
 		printf("Error can't send message to msg queue %d\n", get_msg_queue());
 }
 
@@ -52,7 +52,7 @@ int		read_message(t_msg *qbuf, int team)
 	return ((int)msgrcv_ret);
 }
 
-void	remove_queue()
+void	remove_queue(void)
 {
 	msgctl(get_msg_queue(), IPC_RMID, 0);
 }

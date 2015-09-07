@@ -50,7 +50,6 @@ typedef struct	s_player
 	int			is_active;
 }				t_player;
 
-
 typedef struct	s_map
 {
 	t_tile		tiles[MAP_SIZE * MAP_SIZE];

@@ -12,7 +12,7 @@
 
 #include "lem_ipc.h"
 
-int			get_proc_player_id()
+int			get_proc_player_id(void)
 {
 	size_t	i;
 
@@ -23,16 +23,15 @@ int			get_proc_player_id()
 			return (i);
 		++i;
 	}
-	// printf("error get_proc_player_id\n");
 	return (-1);
 }
 
-t_player	*get_proc_player()
+t_player	*get_proc_player(void)
 {
 	t_player	*to_return;
 
 	to_return = &get_shmem()->players[get_proc_player_id()];
-	return(to_return);
+	return (to_return);
 }
 
 t_player	*get_player(int idx)
@@ -50,5 +49,5 @@ int			get_player_id(t_player *p)
 	int	to_return;
 
 	to_return = p - get_shmem()->players;
-	return(to_return);
+	return (to_return);
 }

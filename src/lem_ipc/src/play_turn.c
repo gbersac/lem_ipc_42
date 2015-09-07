@@ -26,9 +26,9 @@ void		next_player(t_shmem *mem)
 		increment_player(mem);
 }
 
-void	print_players_position(t_shmem *mem)
+void		print_players_position(t_shmem *mem)
 {
-	size_t			i;
+	size_t		i;
 	t_player	*ps;
 
 	i = 0;
@@ -54,12 +54,11 @@ static void	player_actions(t_shmem *mem, t_player *player)
 	move_player(player, target);
 	printf("play_turn player pid %d team %d target %d nb_turn %d\n",
 			getpid(), player->team, target->pid, mem->nb_turn);
-	// print_players_position(mem);
 	print_map();
 	player = NULL;
 }
 
-int			play_turn()
+int			play_turn(void)
 {
 	t_shmem		*mem;
 	t_player	*player;
@@ -69,11 +68,12 @@ int			play_turn()
 	semaph_wait_lock();
 	if (player->pid == getpid())
 	{
-		printf("###new turn %d -> %d\n", getpid(), get_player(get_proc_player_id(NULL))->pid);
+		printf("###new turn %d -> %d\n", getpid(),
+				get_player(get_proc_player_id(NULL))->pid);
 		player_actions(mem, player);
 		sleep(2);
 		next_player(mem);
 	}
 	semaph_unlock();
-	return(0);
+	return (0);
 }

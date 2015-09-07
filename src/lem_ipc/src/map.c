@@ -25,7 +25,7 @@ t_player	*get_map_tile(int x, int y)
 		return (&get_shmem()->players[player_idx]);
 }
 
-int			nb_user_set_on_map()
+int			nb_user_set_on_map(void)
 {
 	int		in_player;
 	int		i;
@@ -88,5 +88,4 @@ int			set_map_tile(int x, int y, t_player *p)
 		return (1);
 	}
 	return (0);
-	// printf("set_map_tile[%d, %d] %p -> %p\n", x, y, p, *get_map_tile(x, y));
 }

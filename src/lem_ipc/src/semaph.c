@@ -29,7 +29,6 @@ int			semaph_wait_lock(void)
 		printf("error while trying to lock the semaphore %d\n", get_semaph());
 		return (-1);
 	}
-	// printf("semaphore lock %d\n", getpid());
 	get_shmem()->semaph_locker = getpid();
 	return (0);
 }
@@ -45,7 +44,6 @@ int			semaph_unlock(void)
 		printf("error while trying to unlock the semaphore %d\n", get_semaph());
 		return (-1);
 	}
-	// printf("semaphore unlock %d\n", getpid());
 	usleep(10);
 	return (0);
 }

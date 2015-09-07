@@ -21,7 +21,6 @@ static int		change_tile(t_player *player, int x, int y)
 		return (0);
 	old_x = player->x;
 	old_y = player->y;
-	// printf("change_tile x %d y %d\n", player->x, player->y);
 	if (!set_map_tile(x, y, player))
 		return (0);
 	set_map_tile(old_x, old_y, NULL);
@@ -33,13 +32,11 @@ static void		move_direction(t_player *player, int x, int y, int other_dir)
 	int		other_dir_one;
 	int		ret;
 
-	// printf("move_direction x%d y%d other_dir %d\n", x, y, other_dir);
 	if (change_tile(player, player->x + x, player->y + y))
 		return ;
 	if (other_dir == 0)
 		other_dir = 1;
 	other_dir_one = other_dir / abs(other_dir);
-	// printf("move_direction %d\n", other_dir_one);
 	if (x != 0)
 		ret = change_tile(player, player->x, player->y + other_dir_one);
 	else

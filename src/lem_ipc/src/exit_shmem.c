@@ -34,7 +34,7 @@ static void	test_proc_is_locking_semaph(void)
 		semaph_unlock();
 }
 
-void		del_shmem()
+void		del_shmem(void)
 {
 	t_shmem	*mem;
 	t_semun	arg;
@@ -67,7 +67,7 @@ void		exit_shmem(void)
 	}
 }
 
-void		kill_all()
+void		kill_all(void)
 {
 	t_player	*p;
 	int			i;

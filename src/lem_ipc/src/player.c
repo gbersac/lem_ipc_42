@@ -61,7 +61,7 @@ int				create_player(int argc, char **argv)
 	return (0);
 }
 
-t_player		*get_current_player()
+t_player		*get_current_player(void)
 {
 	t_player	*to_return;
 

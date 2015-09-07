@@ -16,13 +16,11 @@ static int		test_one_tile(t_player *p, int x, int y, int *teams)
 {
 	t_player	*tile;
 
-	// printf("test_one_tile begin x %d y %d\n", x, y);
 	tile = get_map_tile(x, y);
 	if (tile == NULL || !tile->is_active)
 		return (0);
 	if (tile->team == p->team)
 		return (0);
-	// printf("++team %d x %d y %d\n", tile->team, x, y);
 	teams[tile->team - 1] += 1;
 	return (1);
 }
@@ -34,8 +32,6 @@ static int		test_teams(int *teams)
 	i = 0;
 	while (i < MAX_TEAM)
 	{
-		// if (i == 0 || i == 1)
-		// 	printf("teams %d -> %d\n", i + 1, teams[i]);
 		if (teams[i] >= 2)
 			return (1);
 		++i;
