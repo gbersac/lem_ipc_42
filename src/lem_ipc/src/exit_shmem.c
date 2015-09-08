@@ -40,7 +40,7 @@ void		del_shmem(void)
 	t_semun	arg;
 
 	mem = get_shmem();
-	semctl(mem->semaph_id, 0, IPC_RMID, arg);
+	semctl(get_semaph(), 0, IPC_RMID, arg);
 	shmctl(get_shmid(NULL), IPC_RMID, NULL);
 	remove_queue();
 	ft_putendl("Delete shared memory");
